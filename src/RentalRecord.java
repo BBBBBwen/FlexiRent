@@ -1,17 +1,25 @@
 import utilities.DateTime;
 
 public class RentalRecord extends Property {
-	String ID;
+	static String ID;
 	DateTime RentDate, EsDate, ReDate;
 	double Renfee, Latefee;
 
 	public RentalRecord(String ID, DateTime RentDate, DateTime EsDate, DateTime ReDate, double Renfee, double Latefee) {
-		this.ID = ID;
+		RentalRecord.ID = ID;
 		this.RentDate = RentDate;
 		this.EsDate = EsDate;
 		this.ReDate = ReDate;
 		this.Renfee = Renfee;
 		this.Latefee = Latefee;
+	}
+
+	public boolean rent(String customerId, DateTime rentDate, int numOfRentDay) {
+
+	}
+
+	public boolean returnProperty(DateTime returnDate) {
+		Property.prolist.get(0).Status = "Available";
 	}
 
 	public String toString() {
@@ -26,7 +34,7 @@ public class RentalRecord extends Property {
 		return 0;
 	}
 
-	public String setID(String PropertyID, String CustomID, DateTime RentalDate) {
+	public static String setID(String PropertyID, String CustomID, String RentalDate) {
 		return ID = PropertyID + CustomID + RentalDate;
 	}
 }

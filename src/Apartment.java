@@ -14,7 +14,7 @@ final class Apartment extends Property {
 		return 0;
 	}
 
-	public int ProRent(int days, short bedrooms) {
+	public static int ProRent(int days, short bedrooms) {
 		int num = 0;
 		switch (bedrooms) {
 		case 1:
