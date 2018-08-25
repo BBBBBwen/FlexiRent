@@ -1,87 +1,58 @@
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Property {
-	private String ID;
-	private int StreetNumber;
-	private String StreetName;
-	private String Suburb;
-	private short Bedrooms;
-	private String Type;
-	private String Status;
+abstract class Property {
+	String ID;
+	String Address;
+	short Bedrooms;
+	String Status;
+	String Type;
+	static Scanner sc = new Scanner(System.in);
+	static ArrayList<Property[]> prolist = new ArrayList<Property[]>();
 
-	public Property(String ID, int StreetNumber, String StreetName, String Suburb, short Bedrooms, String Type,
-			String Status) {
-		this.ID = ID;
-		this.StreetNumber = StreetNumber;
-		this.StreetName = StreetName;
-		this.Suburb = Suburb;
-		this.Bedrooms = Bedrooms;
-		this.Type = Type;
-		this.Status = Status;
-	}
+	public abstract int PropRent(int days);
 
-	public String getID() {
-		if (getType().equals("Apartment")) {
-			ID = "A_" + getStreetNumber() + getStreetName().charAt(0) + getSuburb().charAt(0);
-		}
-		if (getType().equals("PremiumSuite")) {
-			ID = "S_" + getStreetNumber() + getStreetName().charAt(0) + getSuburb().charAt(0);
-		}
-		return ID;
-	}
-
-	public void setStreetNumber(int StreetNumber) {
-		this.StreetNumber = StreetNumber;
-	}
-
-	public int getStreetNumber() {
-		return StreetNumber;
-	}
-
-	public void setStreetName(String StreetName) {
-		this.StreetName = StreetName;
-	}
-
-	public String getStreetName() {
-		return StreetName;
-	}
-
-	public void setSuburb(String Suburb) {
-		this.Suburb = Suburb;
-	}
-
-	public String getSuburb() {
-		return Suburb;
-	}
-
-	public void setBedrooms(short Bedrooms) {
-		if (Bedrooms == 1 || Bedrooms == 2 || Bedrooms == 3) {
-			this.Bedrooms = Bedrooms;
-		}
-	}
+	
 
 	public short getBedrooms() {
 		return Bedrooms;
-	}
-
-	public void setType(String Type) {
-		if (Type.equals("Apartment") || Type.equals("PremiumSuite")) {
-			this.Type = Type;
-		}
-	}
-
-	public String getType() {
-		return Type;
-	}
-
-	public void setStatus(String Status) {
-		if (Status.equals("Available") || Status.equals("Rented") || Status.equals("Maintenance")) {
-			this.Status = Status;
-		}
 	}
 
 	public String getStatus() {
 		return Status;
 	}
 
+	public static Apartment addApartment() {
+		System.out.println("Street Number");
+		int StreetNumber = sc.nextInt();
+		System.out.println("Street Name");
+		String StreetName = sc.next();
+		System.out.println("Suburb");
+		String Suburb = sc.next();
+		String Address = StreetNumber +" " + StreetName + " " + Suburb;
+		String ID = "A_" + StreetNumber + StreetName.substring(0, 1).toString().toUpperCase() + "S"
+				+ Suburb.substring(0, 3).toString().toUpperCase();
+		System.out.println("Enter number of bedrooms");
+		short bedrooms = sc.nextShort();
+		Apartment apartment = new Apartment(ID, Address, bedrooms, "Available");
+		return apartment;
+	}
 
+	public static PremiumSuite addPremiumSuite() {
+		System.out.println("Street Number");
+		int StreetNumber = sc.nextInt();
+		System.out.println("Street Name");
+		String StreetName = sc.next();
+		System.out.println("Suburb");
+		String Suburb = sc.next();
+		String Address = StreetNumber +" " + StreetName + " " + Suburb;
+		String ID = "S_" + StreetNumber + StreetName.substring(0, 1).toString().toUpperCase() + "S"
+				+ Suburb.substring(0, 3).toString().toUpperCase();
+		PremiumSuite premiumsuite = new PremiumSuite(ID, Address, (short) 3, "Available");
+		return premiumsuite;
+	}
+
+	public String toString() {
+		return String.format("Property ID= %s Address = %s Property Type = %s Bedrooms = %s Status = %s",ID,Address,Type,Bedrooms,Status);
+	}
 }
