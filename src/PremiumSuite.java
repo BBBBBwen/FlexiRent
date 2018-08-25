@@ -14,4 +14,5 @@ final class PremiumSuite extends Property {
 		num = 662 * days;
 		return num;
 	}
+	
 }

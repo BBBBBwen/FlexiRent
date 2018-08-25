@@ -3,15 +3,13 @@ import java.util.Scanner;
 
 import utilities.DateTime;
 
-abstract class Property {
+abstract class Property implements FlexiRentSystem {
 	String ID;
 	String Address;
 	short Bedrooms;
 	String Status;
 	String Type;
 	static Scanner sc = new Scanner(System.in);
-	static ArrayList<Property> prolist = new ArrayList<Property>();
-	static ArrayList<RentalRecord> renlist = new ArrayList<RentalRecord>();
 
 	public abstract int PropRent(int days);
 
@@ -53,28 +51,18 @@ abstract class Property {
 		return premiumsuite;
 	}
 
-	public static RentalRecord RentalProperty() {
-		System.out.println("Enter PropertyID");
-		String PropertyID = sc.next();
-		System.out.println("Enter CustomID");
-		String CustomID = sc.next();
-		System.out.println("Rental Date");
-		int Ddays = sc.nextInt();
-		int month = sc.nextInt();
-		int year = sc.nextInt();
-		DateTime dt = new DateTime(Ddays,month,year);
-		System.out.println("Enter days");
-		int days = sc.nextInt();
-		DateTime edt = new DateTime(dt,days);
-		int renfee = Apartment.ProRent(days, prolist.get(0).Bedrooms);
-		RentalRecord.setID(PropertyID, CustomID, dt.getEightDigitDate());
-		RentalRecord rr = new RentalRecord(RentalRecord.ID, dt, edt, dt, renfee, days);
-		prolist.get(0).Status = "rented";
-		return rr;
+	public static double latefee(String type, double latefee) {
+		if (type == "Apartment") {
+			RentalRecord.Renfee *= 1.15 * latefee;
+			return RentalRecord.Renfee;
+		} else {
+			RentalRecord.Renfee = 662 * latefee;
+			return RentalRecord.Renfee;
+		}
 	}
 
 	public String toString() {
-		return String.format("Property ID= %s Address = %s Property Type = %s Bedrooms = %s Status = %s", ID, Address,
+		return String.format("Property ID= %s Address = %s Property Type = %s Bedrooms = %s Status = %s\n", ID, Address,
 				Type, Bedrooms, Status);
 	}
 }
